@@ -19,7 +19,7 @@ from collections import OrderedDict
 from fastapi.responses import StreamingResponse
 
 # MongoDB connection setup
-MONGODB_URI = "mongodb://localhost:27017/WildLife"
+MONGODB_URI = "mongodb+srv://thomaskyaw69:<987654321>@uni-project-cluster.as7yc.mongodb.net/"
 DB_NAME = "WildLife"
 
 class ProcessedFilesCache:
