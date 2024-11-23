@@ -12,7 +12,7 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5002/api/auth/register', { email, password });
+      const response = await axios.post('https://new-projectwildlife.onrender.com/api/auth/register', { email, password });
       if (response.data.token) {
         localStorage.setItem('token', response.data.token);
         navigate('/login');
