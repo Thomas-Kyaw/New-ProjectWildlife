@@ -30,7 +30,7 @@ app.use(
 
 // MongoDB connection using environment variable from .env
 const mongoURI =
-  process.env.MONGODB_URI || "mongodb://localhost:27017/WildLife";
+  process.env.MONGODB_URI || "mongodb+srv://thomaskyaw69:<987654321>@uni-project-cluster.as7yc.mongodb.net/";
 mongoose
   .connect(mongoURI, {
     useNewUrlParser: true,
@@ -324,7 +324,7 @@ const createMockUsers = async () => {
 };
 
 // Start the server
-const PORT = process.env.PORT || 5002; // Changed to 5002
+const PORT = process.env.PORT || 5002; 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
