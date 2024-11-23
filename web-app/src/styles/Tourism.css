@@ -1,0 +1,152 @@
+/* Hero Section */
+.tourism-hero-section {
+  background-image: url('../assets/team-photo.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  position: relative;
+}
+
+.tourism-hero-content {
+  z-index: 1;
+}
+
+.tourism-hero-button {
+  padding: 12px 30px;
+  background-color: #007BFF;
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  border-radius: 4px;
+}
+
+.tourism-hero-button:hover {
+  background-color: #0056b3;
+}
+
+/* Sanctuary Overview Section */
+.sanctuary-overview {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 60px 20px;
+  background-color: #f4f4f4;
+}
+
+.overview-text {
+  flex: 1;
+  padding: 20px;
+}
+
+.overview-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007BFF;
+  color: white;
+  text-decoration: none;
+}
+
+.overview-images {
+  flex: 1;
+  display: flex;
+  gap: 20px;
+}
+
+.overview-images img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+/* Discover Section */
+.discover-section {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.discover-content {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.discover-text {
+  flex: 1;
+  padding: 20px;
+}
+
+.discover-button {
+  padding: 12px 30px;
+  background-color: #007BFF;
+  color: white;
+  text-decoration: none;
+}
+
+.discover-video {
+  flex: 1;
+}
+
+.discover-video img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+/* Popular Tours Section */
+.popular-tours {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.tour-cards {
+  display: flex;
+  justify-content: space-around;
+}
+
+.tour-card {
+  background-color: white;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 8px;
+  text-align: center;
+  width: 30%;
+}
+
+.tour-card img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.tour-button {
+  padding: 10px 20px;
+  background-color: #007BFF;
+  color: white;
+  text-decoration: none;
+}
+
+.tour-button:hover {
+  background-color: #0056b3;
+}
+
+/* Reviews Section */
+.reviews-section {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: #f4f4f4;
+}
+
+.review-cards {
+  display: flex;
+  justify-content: space-around;
+}
+
+.review-card {
+  background-color: white;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 8px;
+  width: 30%;
+}

@@ -1,0 +1,185 @@
+/* Hero Section */
+.hero-section {
+  position: relative;
+  height: 100vh; /* Full viewport height */
+  width: 100%; /* Full width */
+  /* background-image: url('/Users/aungkhantkyaw/Documents/ProjectWildlife/web-app/src/assets/orangutan-background-2.jpg');  */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  overflow: hidden; /* Prevent any potential overflow */
+}
+
+.hero-content {
+  padding: 20px;
+  max-width: 800px; /* Limit the width of the content for better readability */
+  width: 90%; /* Allow some margin on very wide screens */
+  z-index: 1; /* Ensure content is above the background */
+}
+
+.hero-content h1 {
+  font-size: 3.5vw; /* Responsive font size */
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Add shadow for better visibility */
+}
+
+.hero-content p {
+  font-size: 1.5vw; /* Responsive font size */
+  margin-bottom: 30px;
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5); /* Add shadow for better visibility */
+}
+
+.hero-button {
+  display: inline-block;
+  padding: 12px 30px;
+  font-size: 1.2vw; /* Responsive font size */
+  background-color: #007BFF;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.hero-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05); /* Slight grow effect on hover */
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3); /* Adjust opacity as needed */
+  z-index: 0;
+}
+
+/* Informational Section */
+.informational-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  background-color: #f4f4f4;
+}
+
+.image-wrapper {
+  flex: 1;
+  max-width: 50%;
+  padding-right: 20px;
+}
+
+.informational-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.info-content {
+  flex: 2;
+  max-width: 50%;
+}
+
+.info-content h2, .info-content h3 {
+  font-size: 28px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.info-content p {
+  font-size: 18px;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+/* Mission Section */
+.mission-section {
+  background-color: #f4f4f4;
+  padding: 40px;
+  text-align: center;
+  margin-bottom: 40px;
+  border-radius: 8px;
+}
+
+.mission-section h2 {
+  font-size: 32px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.mission-section p {
+  font-size: 18px;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* Call to Action Buttons Section */
+.cta-buttons-section {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 60px;
+}
+
+.cta-box {
+  flex: 1;
+  background-color: #ffffff;
+  padding: 20px;
+  margin: 0 10px;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cta-box h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.cta-box p {
+  font-size: 16px;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 12px 25px;
+  background-color: #007BFF;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.cta-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+
+h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+p {
+  font-size: 18px;
+  color: #555;
+  line-height: 1.6;
+}

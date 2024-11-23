@@ -1,0 +1,61 @@
+/* MainNavBar.css */
+.main-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background-color: #333;
+  color: white;
+  padding: 0 20px;
+  height: 55px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+.main-nav.scrolled {
+  height: 40px;
+}
+
+.main-nav-logo {
+  font-size: 18px;
+  transition: all 0.3s ease;
+}
+
+.main-nav-logo a {
+  color: white; 
+  text-decoration: none; 
+  font-size: inherit; /* Inherit the font size from .main-nav-logo */
+}
+
+
+.main-nav.scrolled .main-nav-logo {
+  font-size: 16px;
+}
+
+.main-nav-links {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  transition: opacity 0.3s ease;
+}
+
+.main-nav.scrolled .main-nav-links {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.main-nav-links li {
+  margin-left: 15px;
+}
+
+.main-nav-links a {
+  font-size: 14px;
+  color: white;
+  text-decoration: none;
+}
