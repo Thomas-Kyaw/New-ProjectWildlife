@@ -27,7 +27,7 @@ export default function Profile({ navigation }) {
         console.log("Token:", token);
 
         const response = await axios.get(
-          "http://172.17.16.161:5002/api/auth/profile",
+          "https://new-projectwildlife.onrender.com/api/auth/profile",
           {
             headers: {
               Authorization: `Bearer ${token}`,

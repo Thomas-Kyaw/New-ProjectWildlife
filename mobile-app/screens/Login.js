@@ -14,7 +14,7 @@ export default function Login({ navigation }) {
       console.log("Login started"); // Add this log to see when login starts
 
       const response = await axios.post(
-        "http://172.17.16.161:5002/api/auth/login",
+        "https://new-projectwildlife.onrender.com/api/auth/login",
         {
           email,
           password,

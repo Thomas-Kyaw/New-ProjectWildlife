@@ -13,7 +13,7 @@ export default function Register({ navigation }) {
       console.log("Registration started"); // Log when registration starts
 
       const response = await axios.post(
-        "http://172.17.16.161:5002/api/auth/register",
+        "https://new-projectwildlife.onrender.com/api/auth/register",
         {
           email,
           password,
