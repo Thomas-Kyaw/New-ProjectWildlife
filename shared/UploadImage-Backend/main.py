@@ -60,7 +60,7 @@ CLOUD_VISION_CREDENTIALS_PATH = '/etc/secrets/CLOUD_VISION_JSON'
 
 # Set up authentication using the service account key
 SCOPES = ['https://www.googleapis.com/auth/drive']
-SERVICE_ACCOUNT_FILE = 'WATCH_DRIVE_CREDENTIALS_PATH'
+SERVICE_ACCOUNT_FILE = WATCH_DRIVE_CREDENTIALS_PATH
 
 # Authenticate and create the Drive API client
 creds = service_account.Credentials.from_service_account_file(
@@ -98,7 +98,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 model = YOLO("best.pt")
 
 # Set up Google Cloud Vision API credentials
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'CLOUD_VISION_CREDENTIALS_PATH'
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = CLOUD_VISION_CREDENTIALS_PATH
 
 # Health check endpoint
 @app.get("/health")
