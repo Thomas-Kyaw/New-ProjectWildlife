@@ -14,6 +14,7 @@ import Register from './pages/Register'; // Import register page
 import Admin from './pages/Admin'; // Create these pages for admin and user redirection
 import User from './pages/User';
 import UploadImage from './pages/UploadImage';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/App.css';
 
 function App() {
@@ -21,7 +22,8 @@ function App() {
     <Router>
       <MainNavBar />
       <SecondaryNavBar />
-      <div className="main-content">
+      <div className="container mt-4">
+        {/* Bootstrap container adds padding and centers content */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/donations" element={<Donations />} />
@@ -30,10 +32,10 @@ function App() {
           <Route path="/tourism" element={<Tourism />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/contact-us" element={<ContactUs />} />
-          <Route path="/login" element={<Login />} /> {/* Login route */}
-          <Route path="/register" element={<Register />} /> {/* Register route */}
-          <Route path="/admin" element={<Admin />} /> {/* Admin redirect */}
-          <Route path="/user" element={<User />} /> {/* User redirect */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/user" element={<User />} />
           <Route path="/upload-image" element={<UploadImage />} />
         </Routes>
       </div>

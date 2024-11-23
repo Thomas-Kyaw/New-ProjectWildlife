@@ -6,14 +6,13 @@ body {
 
 .main-content {
   padding: 20px;
-  transition: margin-top 0.3s ease;
 }
 
 body.scrolled .main-content {
-  margin-top: 80px; /* Height when main nav is minimized */
+  margin-top: 80px;
 }
 
 #root {
-  width: 100vw; /* Ensure root container respects viewport width */
-  overflow-x: hidden; /* Ensure no horizontal scroll from root */
+  width: 100%; /* Full-width container */
+  overflow-x: hidden; /* Prevent horizontal scroll */
 }
