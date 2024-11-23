@@ -12,7 +12,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5002/api/auth/login', { email, password });
+      const response = await axios.post('https://new-projectwildlife.onrender.com/api/auth/login', { email, password });
       if (response.data.token) {
         localStorage.setItem('token', response.data.token);
         // Check if user is admin or user
