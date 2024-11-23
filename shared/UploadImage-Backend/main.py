@@ -473,6 +473,7 @@ async def drive_webhook_post(request: Request):
         logging.error(f"Error in webhook handler: {str(e)}")
         return JSONResponse(status_code=500, content={"status": "error", "message": str(e)})
 
+
 if __name__ == "__main__":
     # Configure more detailed logging
     logging.basicConfig(
@@ -484,10 +485,13 @@ if __name__ == "__main__":
         ]
     )
     
+    # Get the port from the environment variable or default to 8000
+    port = int(os.environ.get("PORT", 8000))
+    
     # Run the server
     uvicorn.run(
         app,
         host="0.0.0.0",
-        port=8000,
+        port=port,
         log_level="info"
     )
