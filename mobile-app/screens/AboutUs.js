@@ -40,7 +40,7 @@ export default function AboutUs() {
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Meet Our Team</Text>
         <Image
-          source={require('../assets/team-photo.jpg')}  // Add team.jpg to the assets folder
+          source={require('../assets/team-photo.jpg')}
           style={styles.teamImage}
         />
         <Text style={styles.sectionContent}>
@@ -115,20 +115,21 @@ export default function AboutUs() {
 const styles = StyleSheet.create({
   container: {
     padding: 16,
-    backgroundColor: '#fff',
+    backgroundColor: '#F7F5ED', // Light Cream Background
   },
   header: {
     marginBottom: 20,
     alignItems: 'center',
   },
   headerTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#2E8B57',
+    fontSize: 28,
+    fontFamily: 'DynaPuff',
+    color: '#213D30', // Forest Green
     textAlign: 'center',
   },
   headerSubtitle: {
     fontSize: 16,
+    fontFamily: 'FuzzyBubbles-Regular',
     color: '#555',
     textAlign: 'center',
     marginTop: 5,
@@ -137,9 +138,9 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   sectionTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#1B95E0',
+    fontSize: 22,
+    fontFamily: 'Atma-Bold',
+    color: '#8CAB68', // Olive Green
     marginBottom: 10,
   },
   teamImage: {
@@ -150,50 +151,63 @@ const styles = StyleSheet.create({
   },
   sectionContent: {
     fontSize: 16,
-    color: '#555',
-    lineHeight: 22,
+    fontFamily: 'FuzzyBubbles-Regular',
+    color: '#4B4033', // Muted Brown
+    lineHeight: 24,
   },
   coreValuesContainer: {
     marginBottom: 20,
   },
   coreValuesTitle: {
     fontSize: 20,
-    fontWeight: 'bold',
-    color: '#2E8B57',
+    fontFamily: 'Atma-Bold',
+    color: '#213D30', // Forest Green
     marginBottom: 15,
     textAlign: 'center',
   },
   coreValueCard: {
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#FFFFFF',
     padding: 15,
     borderRadius: 10,
     marginBottom: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3,
   },
   coreValueTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
-    color: '#1B95E0',
+    fontFamily: 'Atma-Bold',
+    color: '#8CAB68',
+    marginBottom: 5,
   },
   coreValueContent: {
     fontSize: 14,
-    color: '#555',
-    marginTop: 5,
+    fontFamily: 'FuzzyBubbles-Regular',
+    color: '#4B4033',
   },
   footer: {
     padding: 16,
     borderTopWidth: 1,
-    borderColor: '#ddd',
+    borderColor: '#DDD',
     alignItems: 'center',
   },
   footerTitle: {
     fontSize: 16,
-    fontWeight: 'bold',
-    color: '#2E8B57',
+    fontFamily: 'Atma-Bold',
+    color: '#213D30',
     marginTop: 10,
   },
   footerText: {
     fontSize: 14,
-    color: '#555',
+    fontFamily: 'FuzzyBubbles-Regular',
+    color: '#4B4033',
     marginTop: 5,
+  },
+  socialMediaContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 10,
   },
 });

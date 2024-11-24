@@ -13,23 +13,24 @@ export default function Home({ navigation }) {
 
       {/* Search Bar */}
       <View style={styles.searchContainer}>
-        <MaterialIcons name="search" size={24} color="gray" />
+        <MaterialIcons name="search" size={24} color="#8CAB68" />
         <TextInput 
           style={styles.searchInput} 
           placeholder="Search for animals or activities" 
+          placeholderTextColor="#a0a0a0"
         />
       </View>
 
       {/* Featured Animals Section */}
       <View style={styles.featuredSection}>
         <Text style={styles.sectionTitle}>Featured Animals</Text>
-        <ScrollView horizontal>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <TouchableOpacity style={styles.animalCard}>
-          <Image source={require('../assets/orangutan-1.jpg')} style={styles.animalImage} />
+            <Image source={require('../assets/orangutan-1.jpg')} style={styles.animalImage} />
             <Text style={styles.animalText}>Orangutan</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.animalCard}>
-          <Image source={require('../assets/elephant-1.jpg')} style={styles.animalImage} />  
+            <Image source={require('../assets/elephant-1.jpg')} style={styles.animalImage} />
             <Text style={styles.animalText}>Bornean Elephant</Text>
           </TouchableOpacity>
         </ScrollView>
@@ -77,11 +78,11 @@ export default function Home({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
-    backgroundColor: '#fff',
+    backgroundColor: '#F7F5ED', // Light Cream Background
   },
   contentContainer: {
-    paddingBottom: 100, // Add bottom padding so content isn't hidden by Tab Navigator
+    paddingBottom: 100, // Padding for bottom navigation
+    paddingHorizontal: 16, // Padding for content
   },
   header: {
     marginBottom: 20,
@@ -90,19 +91,21 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#2E8B57', // Dark green
+    fontFamily: 'DynaPuff', // Use custom font
+    color: '#213D30', // Forest Green
     textAlign: 'center',
     marginBottom: 5,
   },
   subtitle: {
     fontSize: 16,
-    color: '#555',
+    fontFamily: 'FuzzyBubbles-Regular', // Use custom font
+    color: '#4B4033', // Muted Brown
     textAlign: 'center',
   },
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#E8E8E8',
     padding: 10,
     borderRadius: 10,
     marginVertical: 15,
@@ -115,7 +118,8 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#333',
+    fontFamily: 'Atma-Bold',
+    color: '#213D30', // Forest Green
     marginVertical: 15,
   },
   featuredSection: {
@@ -135,6 +139,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     textAlign: 'center',
     fontWeight: 'bold',
+    fontFamily: 'FuzzyBubbles-Regular',
+    color: '#4B4033', // Muted Brown
   },
   sightingsSection: {
     marginBottom: 20,
@@ -152,10 +158,13 @@ const styles = StyleSheet.create({
   },
   sightingText: {
     fontSize: 16,
+    fontFamily: 'FuzzyBubbles-Regular',
+    color: '#213D30', // Forest Green
   },
   viewMoreText: {
-    color: '#1B95E0',
+    color: '#8CAB68', // Olive Green
     fontWeight: 'bold',
+    fontFamily: 'Atma-Bold',
     textAlign: 'right',
   },
   exploreSection: {
@@ -163,20 +172,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   exploreButton: {
-    backgroundColor: '#1B95E0',
+    backgroundColor: '#8CAB68', // Olive Green
     padding: 15,
     borderRadius: 10,
   },
   exploreButtonText: {
     color: '#fff',
     fontWeight: 'bold',
+    fontFamily: 'Atma-Bold',
   },
   actionButtons: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   actionCard: {
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#E8E8E8', // Light Gray Background
     padding: 15,
     borderRadius: 10,
     width: '30%',
@@ -185,6 +195,7 @@ const styles = StyleSheet.create({
   actionText: {
     fontSize: 14,
     fontWeight: 'bold',
-    textAlign: 'center',
+    fontFamily: 'Atma-Bold',
+    color: '#4B4033', // Muted Brown
   },
 });

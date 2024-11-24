@@ -89,57 +89,59 @@ export default function Tourism() {
 const styles = StyleSheet.create({
   container: {
     padding: 16,
-    backgroundColor: '#fff',
+    backgroundColor: '#F7F5ED', // Light Cream Background
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#2E8B57',
+    fontSize: 28,
+    fontFamily: 'DynaPuff',
+    color: '#213D30', // Forest Green
     textAlign: 'center',
     marginBottom: 10,
   },
   subtitle: {
     fontSize: 16,
+    fontFamily: 'FuzzyBubbles-Regular',
     color: '#555',
     textAlign: 'center',
     marginBottom: 20,
   },
   section: {
-    marginBottom: 20,
+    marginBottom: 30,
   },
   sectionTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#1B95E0',
-    marginBottom: 10,
+    fontSize: 22,
+    fontFamily: 'Atma-Bold',
+    color: '#8CAB68', // Olive Green
+    marginBottom: 15,
   },
   sectionContent: {
     fontSize: 16,
-    color: '#555',
-    lineHeight: 22,
+    fontFamily: 'FuzzyBubbles-Regular',
+    color: '#4B4033', // Muted Brown
+    lineHeight: 24,
   },
   sectionImage: {
     width: '100%',
     height: 200,
     borderRadius: 10,
-    marginBottom: 10,
+    marginBottom: 15,
   },
   button: {
-    backgroundColor: '#1B95E0',
+    backgroundColor: '#8CAB68', // Olive Green
     padding: 15,
     borderRadius: 10,
     alignItems: 'center',
     marginTop: 10,
   },
   buttonText: {
-    color: '#fff',
-    fontWeight: 'bold',
+    color: '#FFFFFF',
+    fontFamily: 'Atma-Bold',
     fontSize: 16,
   },
   contactInfo: {
-    padding: 16,
+    padding: 20,
     borderTopWidth: 1,
-    borderColor: '#ddd',
+    borderColor: '#DDD',
     alignItems: 'center',
   },
   socialMediaContainer: {
@@ -148,7 +150,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   socialMediaText: {
-    fontSize: 14,
-    color: '#1B95E0',
+    fontSize: 16,
+    fontFamily: 'FuzzyBubbles-Regular',
+    color: '#8CAB68', // Olive Green
   },
 });

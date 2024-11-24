@@ -6,7 +6,6 @@ export default function Sightings({ navigation }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // You can replace this with an API call to fetch real sightings data
     const data = [
       {
         id: '1',
@@ -24,11 +23,10 @@ export default function Sightings({ navigation }) {
         id: '3',
         name: 'Hornbill Bird',
         description: 'Flying across the reserve.',
-        image: require('../assets/elephant-1.jpg'),
+        image: require('../assets/hornbill.jpg'),
       },
     ];
-    
-    // Simulate an API call with a delay
+
     setTimeout(() => {
       setSightingsData(data);
       setLoading(false);
@@ -66,7 +64,6 @@ export default function Sightings({ navigation }) {
         contentContainerStyle={styles.listContainer}
       />
       
-      {/* Add the Upload Image Button at the bottom of the page */}
       <TouchableOpacity 
         style={styles.uploadButton}
         onPress={() => navigation.navigate('UploadImage')}
@@ -80,26 +77,30 @@ export default function Sightings({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#F7F5ED', // Light cream background
     padding: 16,
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#2E8B57',
+    fontSize: 26,
+    fontFamily: 'DynaPuff',
+    color: '#2E8B57', // Forest Green
     marginBottom: 20,
     textAlign: 'center',
   },
   listContainer: {
-    paddingBottom: 100,
+    paddingBottom: 100, // Ensure content isn't hidden by the button
   },
   sightingCard: {
     flexDirection: 'row',
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '#FFFFFF',
     borderRadius: 10,
     marginBottom: 15,
     padding: 10,
-    elevation: 2,
+    elevation: 3, // Add shadow for a card-like feel
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
   },
   sightingImage: {
     width: 80,
@@ -113,11 +114,14 @@ const styles = StyleSheet.create({
   },
   sightingName: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontFamily: 'Atma-Bold',
+    color: '#213D30', // Dark Forest Green
+    marginBottom: 4,
   },
   sightingDescription: {
     fontSize: 14,
-    color: '#555',
+    fontFamily: 'FuzzyBubbles-Regular',
+    color: '#4B4033', // Muted Brown
   },
   loader: {
     flex: 1,
@@ -131,10 +135,14 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginTop: 20,
     alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
   },
   uploadButtonText: {
-    color: '#fff',
+    color: '#FFFFFF',
     fontSize: 18,
-    fontWeight: 'bold',
+    fontFamily: 'Atma-Bold',
   },
 });

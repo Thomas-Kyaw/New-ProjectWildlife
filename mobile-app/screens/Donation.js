@@ -9,7 +9,16 @@ export default function Donation({ navigation }) {
   const [cvv, setCvv] = useState('');
 
   const handleDonation = () => {
-    // Handle the donation process here
+    if (!name || !cardNumber || !expiryDate || !cvv || (!customAmount && customAmount <= 0)) {
+      alert('Please fill out all fields and enter a valid donation amount.');
+      return;
+    }
+    alert(`Thank you for donating $${customAmount}!`);
+    setCustomAmount('');
+    setName('');
+    setCardNumber('');
+    setExpiryDate('');
+    setCvv('');
   };
 
   const handleEmailPress = () => {
@@ -21,19 +30,14 @@ export default function Donation({ navigation }) {
   };
 
   const handleSocialMediaPress = (platform) => {
-    let url = '';
-    switch (platform) {
-      case 'Facebook':
-        url = 'https://www.facebook.com';
-        break;
-      case 'Twitter':
-        url = 'https://www.twitter.com';
-        break;
-      case 'Instagram':
-        url = 'https://www.instagram.com';
-        break;
+    const urls = {
+      Facebook: 'https://www.facebook.com',
+      Twitter: 'https://www.twitter.com',
+      Instagram: 'https://www.instagram.com',
+    };
+    if (urls[platform]) {
+      Linking.openURL(urls[platform]);
     }
-    Linking.openURL(url);
   };
 
   return (
@@ -48,7 +52,11 @@ export default function Donation({ navigation }) {
         <Text style={styles.sectionTitle}>Select Donation Amount</Text>
         <View style={styles.amountButtons}>
           {['$10', '$25', '$50', '$100'].map((amount, index) => (
-            <TouchableOpacity key={index} style={styles.amountButton}>
+            <TouchableOpacity
+              key={index}
+              style={styles.amountButton}
+              onPress={() => setCustomAmount(amount.replace('$', ''))}
+            >
               <Text style={styles.amountButtonText}>{amount}</Text>
             </TouchableOpacity>
           ))}
@@ -103,15 +111,12 @@ export default function Donation({ navigation }) {
       {/* Footer */}
       <View style={styles.footer}>
         <Text style={styles.footerTitle}>Contact Information</Text>
-
         <TouchableOpacity onPress={handleEmailPress}>
           <Text style={styles.footerText}>Email: info@orangutanoasis.com</Text>
         </TouchableOpacity>
-
         <TouchableOpacity onPress={handlePhonePress}>
           <Text style={styles.footerText}>Phone: +123 456 7890</Text>
         </TouchableOpacity>
-
         <Text style={styles.footerTitle}>Social Media</Text>
         <View style={styles.socialMediaContainer}>
           <TouchableOpacity onPress={() => handleSocialMediaPress('Facebook')}>
@@ -132,20 +137,22 @@ export default function Donation({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     padding: 16,
-    backgroundColor: '#fff',
+    backgroundColor: '#F7F5ED',
   },
   title: {
     fontSize: 26,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#2E8B57',
     marginBottom: 10,
     textAlign: 'center',
+    fontFamily: 'DynaPuff',
   },
   subtitle: {
     fontSize: 16,
     color: '#555',
     marginBottom: 20,
     textAlign: 'center',
+    fontFamily: 'FuzzyBubbles-Regular',
   },
   section: {
     marginBottom: 20,
@@ -155,6 +162,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#333',
     marginBottom: 10,
+    fontFamily: 'DynaPuff',
   },
   amountButtons: {
     flexDirection: 'row',
@@ -169,39 +177,43 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   amountButtonText: {
-    color: '#fff',
+    color: '#FFF',
     fontWeight: 'bold',
     fontSize: 16,
+    fontFamily: 'Atma-Bold',
   },
   orText: {
     textAlign: 'center',
     fontSize: 16,
     marginVertical: 10,
+    fontFamily: 'FuzzyBubbles-Regular',
   },
   input: {
-    borderColor: '#ccc',
+    borderColor: '#CCC',
     borderWidth: 1,
     borderRadius: 5,
     padding: 10,
     marginBottom: 15,
     fontSize: 16,
+    fontFamily: 'FuzzyBubbles-Regular',
   },
   donateButton: {
-    backgroundColor: '#1B95E0',
+    backgroundColor: '#2E8B57',
     padding: 15,
     borderRadius: 10,
     alignItems: 'center',
     marginBottom: 20,
   },
   donateButtonText: {
-    color: '#fff',
+    color: '#FFF',
     fontWeight: 'bold',
     fontSize: 16,
+    fontFamily: 'Atma-Bold',
   },
   footer: {
     padding: 16,
     borderTopWidth: 1,
-    borderColor: '#ddd',
+    borderColor: '#DDD',
     alignItems: 'center',
   },
   footerTitle: {
@@ -209,10 +221,17 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#2E8B57',
     marginTop: 10,
+    fontFamily: 'DynaPuff',
   },
   footerText: {
     fontSize: 14,
     color: '#555',
     marginTop: 5,
+    fontFamily: 'FuzzyBubbles-Regular',
+  },
+  socialMediaContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 10,
   },
 });

@@ -2,7 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import TabNavigator from './TabNavigator';
 import AnimalDetails from '../screens/AnimalDetails';
-import UploadImage from '../screens/UploadImage'; // Import the UploadImage screen
+import UploadImage from '../screens/UploadImage';
 import Tourism from '../screens/Tourism';
 import Donation from '../screens/Donation';
 import ContactUs from '../screens/ContactUs';
@@ -15,7 +15,18 @@ const Stack = createStackNavigator();
 
 export default function StackNavigator() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: '#2E8B57', // Forest Green
+        },
+        headerTintColor: '#F7F5ED', // Cream White
+        headerTitleStyle: {
+          fontWeight: 'bold',
+          fontFamily: 'DynaPuff-Bold', // Custom font
+        },
+      }}
+    >
       <Stack.Screen 
         name="Login" 
         component={Login} 
@@ -65,7 +76,7 @@ export default function StackNavigator() {
       />
       <Stack.Screen 
         name="UploadImage" 
-        component={UploadImage}  // Add the UploadImage screen
+        component={UploadImage} 
         options={{ title: 'Upload Image' }} 
       />
     </Stack.Navigator>

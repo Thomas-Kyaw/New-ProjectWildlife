@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
-  Button,
+  TouchableOpacity,
   StyleSheet,
   ActivityIndicator,
 } from "react-native";
@@ -24,24 +24,17 @@ export default function Profile({ navigation }) {
           return;
         }
 
-        console.log("Token:", token);
-
         const response = await axios.get(
           "https://new-projectwildlife.onrender.com/api/auth/profile",
           {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-            timeout: 5000, // Add timeout
+            headers: { Authorization: `Bearer ${token}` },
+            timeout: 5000, // Timeout after 5 seconds
           }
         );
 
-        console.log("Profile response:", response.data);
         setUserData(response.data);
         setErrorMessage("");
       } catch (error) {
-        console.error("Error fetching profile:", error);
-
         if (error.code === "ECONNABORTED") {
           setErrorMessage("Connection timeout. Please try again.");
         } else if (error.response) {
@@ -86,7 +79,7 @@ export default function Profile({ navigation }) {
   if (loading) {
     return (
       <View style={styles.container}>
-        <ActivityIndicator size="large" color="#0000ff" />
+        <ActivityIndicator size="large" color="#1B95E0" />
       </View>
     );
   }
@@ -95,16 +88,13 @@ export default function Profile({ navigation }) {
     <View style={styles.container}>
       <Text style={styles.title}>User Profile</Text>
       {errorMessage ? <Text style={styles.error}>{errorMessage}</Text> : null}
-      <Text style={styles.profileText}>
-        Email: {userData.email || "Not available"}
-      </Text>
-      <Text style={styles.profileText}>
-        Name: {userData.displayName || "Not available"}
-      </Text>
-      <Text style={styles.profileText}>
-        Role: {userData.role || "Not available"}
-      </Text>
-      <Button title="Logout" onPress={handleLogout} />
+      <Text style={styles.profileText}>Email: {userData.email || "Not available"}</Text>
+      <Text style={styles.profileText}>Name: {userData.displayName || "Not available"}</Text>
+      <Text style={styles.profileText}>Role: {userData.role || "Not available"}</Text>
+
+      <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+        <Text style={styles.logoutButtonText}>Logout</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -114,23 +104,41 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     padding: 20,
-    backgroundColor: "#fff",
+    backgroundColor: "#F7F5ED",
   },
   title: {
-    fontSize: 24,
-    textAlign: "center",
-    marginBottom: 20,
+    fontSize: 26,
     fontWeight: "bold",
+    textAlign: "center",
+    color: "#2E8B57",
+    fontFamily: "DynaPuff",
+    marginBottom: 20,
   },
   profileText: {
     fontSize: 18,
+    color: "#555",
     marginBottom: 10,
     textAlign: "center",
+    fontFamily: "FuzzyBubbles-Regular",
   },
   error: {
     color: "red",
-    marginBottom: 10,
     textAlign: "center",
     fontSize: 16,
+    fontFamily: "FuzzyBubbles-Regular",
+    marginBottom: 10,
+  },
+  logoutButton: {
+    backgroundColor: "#1B95E0",
+    padding: 15,
+    borderRadius: 10,
+    alignItems: "center",
+    marginTop: 20,
+  },
+  logoutButtonText: {
+    color: "#FFF",
+    fontWeight: "bold",
+    fontSize: 16,
+    fontFamily: "Atma-Bold",
   },
 });

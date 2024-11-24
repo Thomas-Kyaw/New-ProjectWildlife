@@ -62,28 +62,39 @@ export default function Info() {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
-    backgroundColor: '#fff',
+    padding: 20,
+    backgroundColor: '#F7F5ED', // Light cream background
   },
   title: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: 'bold',
-    color: '#2E8B57',
-    marginBottom: 20,
+    color: '#2E8B57', // Forest green
     textAlign: 'center',
+    fontFamily: 'DynaPuff-Bold', // Elegant font for the title
+    marginBottom: 20,
   },
   section: {
-    marginBottom: 20,
+    marginBottom: 25,
+    padding: 15,
+    backgroundColor: '#FFFFFF', // White background for sections
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 3, // Elevation for Android
   },
   sectionTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
-    color: '#1B95E0',
-    marginBottom: 5,
+    color: '#1B95E0', // Sky blue for section titles
+    marginBottom: 10,
+    fontFamily: 'Atma-Bold', // Bold and attention-grabbing font
   },
   sectionContent: {
     fontSize: 16,
-    color: '#555',
-    lineHeight: 22,
+    color: '#555', // Muted gray for text
+    lineHeight: 24,
+    fontFamily: 'FuzzyBubbles-Regular', // Readable and soft font
   },
 });

@@ -7,17 +7,33 @@ import Home from '../screens/Home';
 import Sightings from '../screens/Sightings';
 import Info from '../screens/Info';
 import Tourism from '../screens/Tourism';
-import Profile from '../screens/Profile';  // Import Profile screen
+import Profile from '../screens/Profile';
 
 const Tab = createBottomTabNavigator();
 
 export default function TabNavigator() {
   return (
     <Tab.Navigator
-      initialRouteName="Home"  // Start with the Home screen
+      initialRouteName="Home"
       screenOptions={{
-        tabBarActiveTintColor: '#1B95E0',
-        tabBarInactiveTintColor: '#888',
+        tabBarStyle: {
+          backgroundColor: '#F7F5ED', // Light Cream background
+          borderTopColor: '#2E8B57', // Forest Green border
+        },
+        tabBarActiveTintColor: '#1B95E0', // Active tab color
+        tabBarInactiveTintColor: '#888', // Inactive tab color
+        tabBarLabelStyle: {
+          fontFamily: 'FuzzyBubbles-Regular', // Custom font
+          fontSize: 12,
+        },
+        headerStyle: {
+          backgroundColor: '#2E8B57', // Stack header background
+        },
+        headerTintColor: '#F7F5ED', // Stack header text color
+        headerTitleStyle: {
+          fontFamily: 'DynaPuff-Bold', // Header title font
+          fontSize: 18,
+        },
       }}
     >
       <Tab.Screen
