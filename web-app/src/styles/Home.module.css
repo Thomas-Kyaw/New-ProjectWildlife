@@ -1,0 +1,134 @@
+/* General Styling */
+.homePage {
+  background-color: #f7f5ed; /* Cream White Background */
+  color: #4b4033; /* Dark Brown for Text */
+  font-family: 'Fuzzy Bubbles', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.heroSection {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: url('../assets/orangutan-background-1.jpg') center/cover no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff; /* White text */
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8); /* Add shadow for readability */
+}
+
+.heroContent {
+  text-align: center;
+  padding: 20px;
+}
+
+.heroTitle {
+  font-family: "DynaPuff", system-ui;
+  font-size: 4rem;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.heroSubtitle {
+  font-family: 'Fuzzy Bubbles', sans-serif;
+  font-size: 1.5rem;
+  margin-bottom: 30px;
+  font-weight: 300;
+  color: #f7f5ed; /* Cream White */
+}
+
+.heroButton {
+  font-weight: 600;
+  background-color: #2a5d43;
+  border-color: #2a5d43;
+  color: #fff;
+}
+
+.heroButton:hover {
+  background-color: #f2c94c;
+  border-color: #f2c94c;
+}
+
+.infoSection {
+  background-color: #eae6d7; /* Muted Beige */
+  padding: 50px 20px;
+}
+
+.infoSection h2 {
+  font-size: 2rem;
+  color: #2a5d43; /* Forest Green */
+}
+
+.infoSection p {
+  color: #4b4033; /* Dark Brown */
+}
+
+.missionSection {
+  background-color: #8cab68; /* Sage Green */
+  color: #f7f5ed; /* Cream White */
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.missionSection h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.missionSection .lead {
+  font-size: 1.2rem;
+  color: #f7f5ed;
+}
+
+.ctaSection {
+  background-color: #f7f5ed; /* Cream White */
+  padding: 50px 20px;
+}
+
+.ctaCard {
+  background-color: #fff; /* Pure White Card */
+  padding: 20px;
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ctaCard:hover {
+  transform: translateY(-10px); /* Slight lift effect */
+  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.ctaCard h3 {
+  font-size: 1.5rem;
+  color: #2a5d43; /* Forest Green */
+  margin-bottom: 10px;
+}
+
+.ctaCard p {
+  color: #777; /* Muted Gray */
+}
+
+.btn-primary {
+  background-color: #2a5d43; /* Forest Green */
+  border-color: #2a5d43;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #f2c94c; /* Golden Yellow */
+  border-color: #f2c94c;
+}
+
+.btn-secondary {
+  background-color: #f28b54; /* Soft Coral Orange */
+  border-color: #f28b54;
+  color: #fff;
+}
+
+.btn-secondary:hover {
+  background-color: #2a5d43; /* Forest Green */
+  border-color: #2a5d43;
+  color: #fff;
+}

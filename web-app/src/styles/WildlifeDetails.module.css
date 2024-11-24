@@ -1,0 +1,56 @@
+/* General Page Styling */
+.detailsPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centers content vertically */
+  align-items: center; /* Centers content horizontally */
+  min-height: 100vh; /* Ensures content takes up the full viewport height */
+  padding: 20px;
+  background-color: #f7f5ed; /* Cream White */
+  font-family: 'DynaPuff', sans-serif; /* Project's primary font */
+  color: #4b4033; /* Dark Brown */
+}
+
+/* Image Section */
+.imageContainer {
+  margin-bottom: 20px;
+}
+
+.animalImage {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  object-fit: cover;
+}
+
+/* Text Content Section */
+.textContent {
+  text-align: center; /* Centers text horizontally */
+  max-width: 600px; /* Restricts width for better readability */
+}
+
+.animalName {
+  font-size: 2.5rem;
+  color: #213d30; /* Forest Green */
+  margin-bottom: 20px;
+}
+
+.animalDescription {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+p {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+/* Not Found Message */
+.notFound {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #f44336; /* Red for not found message */
+  margin: 50px;
+}

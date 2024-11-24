@@ -1,0 +1,66 @@
+/* Page Styles */
+/* Add padding to account for the fixed navbar height */
+.wildlifeSightingsPage {
+  font-family: 'DynaPuff', system-ui;
+  padding: 20px;
+  padding-top: 140px; /* 56px (top navbar) + 48px (second navbar) */
+  background-color: #f7f5ed; /* Cream White */
+  color: #4b4033; /* Dark Brown */
+  min-height: 100vh; /* Ensure the page covers at least the viewport height */
+}
+
+
+.title {
+  font-family: 'Fuzzy Bubbles', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #2a5d43; /* Forest Green */
+  text-align: center;
+}
+
+/* Table Styles */
+.sightingsTable {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff; /* White background for clarity */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  border-radius: 10px; /* Rounded corners */
+  overflow: hidden; /* For rounded corners */
+}
+
+.sightingsTable th {
+  font-family: 'Fuzzy Bubbles', sans-serif;
+  font-size: 1.2rem;
+  background-color: #8cab68; /* Olive Green */
+  color: #f7f5ed; /* Cream White */
+  padding: 15px;
+  text-align: left;
+}
+
+.sightingsTable td {
+  font-family: 'DynaPuff', cursive;
+  font-size: 1rem;
+  padding: 15px;
+  color: #4b4033; /* Dark Brown */
+}
+
+.sightingsTable tr:nth-child(even) {
+  background-color: #f9f9f9; /* Subtle striped effect */
+}
+
+.sightingsTable tr:hover {
+  background-color: #eae6d7; /* Highlight row on hover */
+}
+
+.detailsLink {
+  font-family: 'Fuzzy Bubbles', sans-serif;
+  color: #2a5d43; /* Forest Green */
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.detailsLink:hover {
+  color: #f2c94c; /* Golden Yellow */
+}

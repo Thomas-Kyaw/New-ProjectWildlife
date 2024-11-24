@@ -1,0 +1,116 @@
+/* General Page Styling */
+.donationsPage {
+  font-family: 'DynaPuff', system-ui;
+  padding: 30px;
+  padding-top: 140px;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  color: #4b4033; /* Dark Brown */
+}
+
+.donationsPage h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+  color: #2a5d43; /* Forest Green */
+}
+
+.donationsPage p {
+  font-size: 18px;
+  margin-bottom: 30px;
+  color: #6b6149; /* Soft Brown */
+}
+
+/* Donation Form Styling */
+.donationForm h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #4b4033;
+}
+
+.amountOptions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.amountButton {
+  background-color: #2a5d43; /* Forest Green */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 18px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.amountButton.selected {
+  background-color: #f2c94c; /* Golden Yellow */
+}
+
+.amountButton:hover {
+  background-color: #f2c94c;
+}
+
+/* Custom Amount Input */
+.customAmountInput {
+  padding: 10px;
+  font-size: 18px;
+  margin-bottom: 20px;
+  width: 50%;
+  border: 2px solid #d5e5dc;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.customAmountInput:focus {
+  border-color: #2a5d43;
+}
+
+/* Payment Details Section */
+.paymentDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.paymentDetails label {
+  font-size: 16px;
+  margin-bottom: 5px;
+  color: #4b4033;
+}
+
+.paymentDetails input[type="text"] {
+  padding: 10px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  width: 80%;
+  border: 2px solid #d5e5dc;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.paymentDetails input[type="text"]:focus {
+  border-color: #2a5d43;
+}
+
+/* Submit Button */
+.submitButton {
+  background-color: #28a745; /* Green */
+  color: white;
+  padding: 12px 30px;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submitButton:hover {
+  background-color: #218838; /* Darker Green */
+}

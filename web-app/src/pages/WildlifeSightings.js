@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/WildlifeSightings.css';
+import styles from '../styles/WildlifeSightings.module.css';
 
 // Mock data for wildlife sightings
 const mockWildlifeSightings = [
@@ -12,9 +12,9 @@ const mockWildlifeSightings = [
 
 const WildlifeSightings = () => {
   return (
-    <div className="wildlife-sightings-page">
-      <h1>Wildlife Sightings</h1>
-      <table className="sightings-table">
+    <div className={styles.wildlifeSightingsPage}>
+      <h1 className={styles.title}>Wildlife Sightings</h1>
+      <table className={`table table-striped table-hover ${styles.sightingsTable}`}>
         <thead>
           <tr>
             <th>Species</th>
@@ -25,10 +25,13 @@ const WildlifeSightings = () => {
         <tbody>
           {mockWildlifeSightings.map((animal) => (
             <tr key={animal.species}>
-              <td>{animal.species}</td>
+              <td className={styles.species}>{animal.species}</td>
               <td>{animal.sightings}</td>
               <td>
-                <Link to={`/wildlife-details/${animal.species.toLowerCase().replace(/\s+/g, '-')}`}>
+                <Link
+                  to={`/wildlife-details/${animal.species.toLowerCase().replace(/\s+/g, '-')}`}
+                  className={styles.detailsLink}
+                >
                   View Details
                 </Link>
               </td>

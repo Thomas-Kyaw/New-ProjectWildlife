@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styles from "../styles/UploadImage.module.css";
 
 const UploadImage = () => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -35,23 +36,47 @@ const UploadImage = () => {
   };
 
   return (
-    <div>
-      <input type="file" onChange={handleFileChange} />
-      <button onClick={handleUpload}>Upload Image</button>
+    <div className={styles.uploadContainer}>
+      <h1 className={styles.centeredHeading}>Upload and Process Your Image</h1>
+      <label htmlFor="file-upload" className={styles.dropzone}>
+        <p className={styles.instructions}>
+          Drag and drop your file here or click to select a file
+        </p>
+        <input
+          id="file-upload"
+          type="file"
+          onChange={handleFileChange}
+          className={styles.fileInput}
+        />
+      </label>
+      <div className={styles.buttonContainer}>
+        <button
+          onClick={handleUpload}
+          className={styles.uploadButton}
+          disabled={!selectedFile}
+        >
+          Upload Image
+        </button>
+      </div>
       {imageUrl && (
-        <div>
+        <div className={styles.imageWrapper}>
           <h3>Annotated Image</h3>
           <img
             src={imageUrl}
             alt="Annotated"
-            style={{ width: "500px", height: "auto" }}
+            className={styles.image}
           />
         </div>
       )}
       {csvUrl && (
-        <div>
+        <div className={styles.csvWrapper}>
           <h3>Extracted Data CSV</h3>
-          <a href={csvUrl} target="_blank" rel="noopener noreferrer">
+          <a
+            href={csvUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.csvLink}
+          >
             Download CSV
           </a>
         </div>

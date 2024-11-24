@@ -1,0 +1,152 @@
+/* General Styling */
+.tourismPage {
+  font-family: 'DynaPuff', system-ui;
+  background-color: #f7f5ed;
+  color: #4b4033;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+/* Hero Section */
+.tourismHeroSection {
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+}
+
+.tourismHeroContent {
+  max-width: 80%; /* Centered content stays responsive */
+  padding: 20px;
+}
+
+.heroTitle {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.heroButton {
+  font-size: 1.2rem;
+  padding: 12px 30px;
+  background-color: #2a5d43;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+}
+
+.heroButton:hover {
+  background-color: #f2c94c;
+}
+
+/* Sanctuary Overview */
+.sanctuaryOverview {
+  display: flex;
+  flex-wrap: wrap; /* Ensure responsiveness */
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+.overviewText {
+  flex: 1;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.overviewImages {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.overviewImages img {
+  width: 48%; /* Ensure images align neatly */
+  border-radius: 8px;
+}
+
+/* Discover Section */
+.discoverSection {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.discoverContent {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.discoverText,
+.discoverImage {
+  flex: 1;
+}
+
+.discoverImage img {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 8px;
+}
+
+/* Popular Tours */
+.popularTours {
+  padding: 60px 20px;
+}
+
+.tourCards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.tourCard {
+  flex: 1 1 calc(33.333% - 20px);
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.tourCard img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.tourButton {
+  margin-top: 10px;
+  background-color: #2a5d43;
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+}
+
+/* Reviews Section */
+.reviewsSection {
+  padding: 60px 20px;
+  background-color: #eae6d7;
+}
+
+.reviewCards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.reviewCard {
+  flex: 1 1 calc(33.333% - 20px);
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+}

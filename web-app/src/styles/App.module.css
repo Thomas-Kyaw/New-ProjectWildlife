@@ -1,0 +1,10 @@
+.app {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+.mainContent {
+  margin-top: 104px; /* Space for top (56px) and bottom navbar (48px) */
+  padding: 20px; /* Optional padding for content */
+}

@@ -1,0 +1,103 @@
+/* General Styling for Navbar */
+.topNavbar,
+.bottomNavbar {
+  font-family: 'Atma', system-ui; /* Use Atma font */
+}
+
+/* Top Navbar */
+.topNavbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 56px;
+  background-color: #213d30; /* Dark Forest Green */
+  color: #f7f5ed; /* Light cream */
+  z-index: 1030; /* Ensure it stays on top */
+  display: flex;
+  justify-content: space-between; /* Align links and logo */
+  align-items: center; /* Center items vertically */
+  padding: 0 1rem; /* Add padding around content */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Brand Section (Logo + Text) */
+.navbarBrand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #f7f5ed;
+  text-decoration: none;
+  display: flex;
+  align-items: center; /* Align logo and brand text vertically */
+  gap: 10px; /* Space between the logo and brand text */
+}
+
+.navbarBrand img {
+  display: inline-block;
+  height: 30px; /* Adjust logo size */
+}
+
+/* Links Section */
+.navbarLinks {
+  display: flex;
+  gap: 20px; /* Space between each link */
+}
+
+.navLink {
+  text-decoration: none;
+  color: #d5e5dc; /* Muted cream */
+  font-size: 1rem;
+  transition: color 0.3s ease; /* Smooth hover effect */
+}
+
+.navLink:hover {
+  color: #f2c94c; /* Soft yellow on hover */
+}
+
+/* Bottom Navbar */
+.bottomNavbar {
+  position: fixed;
+  top: 56px; /* Positioned just below the top navbar */
+  left: 0;
+  width: 100%;
+  height: 48px;
+  background-color: #4b4033; /* Muted Brown */
+  color: #f7f5ed;
+  z-index: 1020; /* Below the top navbar */
+  display: flex;
+  justify-content: flex-start; /* Align items to the left */
+  align-items: center; /* Center items vertically */
+  padding: 0 1rem;
+  gap: 20px; /* Space between links */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  transition: transform 0.3s ease-in-out; /* Smooth slide-up effect */
+}
+
+/* Hidden Class for Bottom Navbar */
+.hidden {
+  transform: translateY(-48px); /* Slide-up effect to hide */
+}
+
+/* Hover Effects for Bottom Navbar Links */
+.bottomNavbar .navLink:hover {
+  color: #f2c94c; /* Soft yellow */
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .navbarLinks {
+    gap: 10px; /* Reduce gap on smaller screens */
+  }
+
+  .navLink {
+    font-size: 0.9rem; /* Adjust link font size */
+  }
+
+  .bottomNavbar {
+    height: 40px; /* Reduce navbar height on smaller screens */
+  }
+
+  .bottomNavbar .navLink {
+    font-size: 0.9rem; /* Adjust link font size */
+  }
+}

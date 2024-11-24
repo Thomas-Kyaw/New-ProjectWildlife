@@ -1,0 +1,136 @@
+/* General Page Styling */
+.aboutPage {
+  font-family: 'DynaPuff', system-ui, sans-serif;
+  background-color: #f7f5ed; /* Light cream background */
+  color: #4b4033; /* Dark brown text */
+  line-height: 1.6;
+  margin-top: 100px;
+}
+
+/* Header Section */
+.headerSection {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: #8cab68; /* Olive green */
+  color: #f7f5ed;
+}
+
+.headerSection h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.headerSection p {
+  font-size: 1.2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Team Section */
+.teamSection {
+  display: flex;
+  flex-wrap: wrap; /* Ensure responsive layout */
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  background-color: #ffffff;
+}
+
+.imageWrapper {
+  flex: 1;
+  max-width: 400px;
+  margin: 20px;
+}
+
+.teamImage {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.teamContent {
+  flex: 2;
+  max-width: 600px;
+  margin: 20px;
+}
+
+.teamContent h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #213d30; /* Dark forest green */
+}
+
+.teamContent h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #8cab68; /* Olive green */
+}
+
+.teamContent p {
+  font-size: 1.1rem;
+  color: #4b4033; /* Dark brown */
+  line-height: 1.8;
+}
+
+/* Values Section */
+.valuesSection {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: #f4f4f4; /* Light gray background */
+}
+
+.valuesSection h2 {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  color: #4b4033;
+}
+
+.valuesGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.valueBox {
+  flex: 1;
+  max-width: 300px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.valueBox h3 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  color: #213d30; /* Dark forest green */
+}
+
+.valueBox p {
+  font-size: 1rem;
+  color: #4b4033; /* Dark brown */
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .teamSection {
+    flex-direction: column;
+  }
+
+  .imageWrapper,
+  .teamContent {
+    max-width: 100%;
+  }
+
+  .valuesGrid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .valueBox {
+    max-width: 90%;
+  }
+}

@@ -1,0 +1,132 @@
+/* General Container */
+.uploadContainer {
+  font-family: 'DynaPuff', system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh; /* Ensures the page looks filled even with minimal content */
+  padding: 20px;
+  padding-top: 140px;
+  background-color: #f7f5ed; /* Light cream background */
+  color: #4b4033; /* Dark brown for text */
+}
+
+/* Headings */
+.centeredHeading {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #2a5d43; /* Forest green */
+}
+
+/* Dropzone Styles */
+.dropzone {
+  border: 2px dashed #ccc;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 500px; /* Responsive width */
+  height: 250px; /* Responsive height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 20px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.dropzone:hover {
+  border-color: #2a5d43; /* Forest green */
+  background-color: #e9f5ea; /* Light green */
+}
+
+.instructions {
+  color: #6b6149; /* Soft brown */
+  font-size: 1rem;
+}
+
+/* File Input */
+.fileInput {
+  display: none; /* Keep the input hidden but accessible via the label */
+}
+
+/* Button Container */
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.uploadButton {
+  background-color: #2a5d43; /* Forest green */
+  color: white;
+  padding: 12px 30px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.uploadButton:hover {
+  background-color: #f2c94c; /* Golden yellow */
+}
+
+.uploadButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Image Wrapper */
+.imageWrapper {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.image {
+  max-width: 100%;
+  height: auto;
+  border: 2px solid #2a5d43; /* Forest green border */
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+/* CSV Link */
+.csvWrapper {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.csvLink {
+  font-size: 1.2rem;
+  color: #2a5d43;
+  text-decoration: none;
+  padding: 10px 20px;
+  border: 2px solid #2a5d43; /* Forest green border */
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.csvLink:hover {
+  background-color: #2a5d43;
+  color: white;
+}
+
+/* Media Queries */
+@media (max-width: 600px) {
+  .dropzone {
+    height: 200px; /* Adjust height for smaller screens */
+  }
+
+  .uploadButton {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+
+  .csvLink {
+    font-size: 1rem;
+    padding: 8px 16px;
+  }
+}

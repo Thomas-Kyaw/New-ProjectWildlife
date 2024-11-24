@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import "../styles/ContactUs.css";
+import styles from "../styles/ContactUs.module.css";
 
 const ContactUs = () => {
   const {
@@ -12,21 +12,21 @@ const ContactUs = () => {
   const onSubmit = (data) => {
     console.log(data);
     alert("Message sent successfully!");
-    // You can add logic to send form data to an email API here.
+    // Add logic to send form data to an email API here.
   };
 
   return (
-    <div className="contact-page">
+    <div className={styles.contactPage}>
       {/* Contact Form Section */}
-      <section className="contact-form-section">
+      <section className={styles.contactFormSection}>
         <h1>Contact Us</h1>
         <p>
           We'd love to hear from you! Please fill out the form below and we'll
           get in touch with you shortly.
         </p>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="contact-form">
-          <div className="form-group">
+        <form onSubmit={handleSubmit(onSubmit)} className={styles.contactForm}>
+          <div className={styles.formGroup}>
             <label htmlFor="name">Name</label>
             <input
               type="text"
@@ -35,11 +35,11 @@ const ContactUs = () => {
               {...register("name", { required: true })}
             />
             {errors.name && (
-              <span className="error-message">Name is required</span>
+              <span className={styles.errorMessage}>Name is required</span>
             )}
           </div>
 
-          <div className="form-group">
+          <div className={styles.formGroup}>
             <label htmlFor="email">Email</label>
             <input
               type="email"
@@ -48,11 +48,11 @@ const ContactUs = () => {
               {...register("email", { required: true })}
             />
             {errors.email && (
-              <span className="error-message">Email is required</span>
+              <span className={styles.errorMessage}>Email is required</span>
             )}
           </div>
 
-          <div className="form-group">
+          <div className={styles.formGroup}>
             <label htmlFor="subject">Subject</label>
             <input
               type="text"
@@ -61,11 +61,11 @@ const ContactUs = () => {
               {...register("subject", { required: true })}
             />
             {errors.subject && (
-              <span className="error-message">Subject is required</span>
+              <span className={styles.errorMessage}>Subject is required</span>
             )}
           </div>
 
-          <div className="form-group">
+          <div className={styles.formGroup}>
             <label htmlFor="message">Message</label>
             <textarea
               id="message"
@@ -74,30 +74,36 @@ const ContactUs = () => {
               {...register("message", { required: true })}
             ></textarea>
             {errors.message && (
-              <span className="error-message">Message is required</span>
+              <span className={styles.errorMessage}>Message is required</span>
             )}
           </div>
 
-          <button type="submit" className="submit-button">
+          <button type="submit" className={styles.submitButton}>
             Send Message
           </button>
         </form>
       </section>
 
       {/* Contact Information Section */}
-      <section className="contact-info-section">
-        <div className="contact-info-box">
+      <section className={styles.contactInfoSection}>
+        <div className={styles.contactInfoBox}>
           <h2>Contact Information</h2>
           <p>Email: info@orangutanoasis.com</p>
           <p>Phone: +123 456 7890</p>
           <p>Address: Semenggoh Nature Reserve, Borneo</p>
         </div>
 
-        <div className="social-media-links">
+        <div className={styles.socialMediaLinks}>
           <h2>Follow Us</h2>
-          <a href="facebook.com">Facebook</a>
-          <a href="twitter.com">Twitter</a>
-          <a href="instagram.com">Instagram</a>
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+            Facebook
+          </a>
+          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+            Twitter
+          </a>
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+            Instagram
+          </a>
         </div>
       </section>
     </div>

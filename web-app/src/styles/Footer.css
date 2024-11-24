@@ -1,3 +1,6 @@
+footer{
+    font-family: 'Atma', cursive; /* Use Atma font */
+}
 footer a:hover {
   color: #ccc; /* Optional: Lighter hover effect for links */
 }
