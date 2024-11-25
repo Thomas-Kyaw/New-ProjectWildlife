@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from '../styles/Tourism.module.css';
 import tourismHeroImg from '../assets/Tourism-Image-Card-2.jpg';
-import teamPhoto from '../assets/team-photo.jpg';
 import ImageCardOne from '../assets/Tourism-Image-Card.jpg'
 import ImageCardTwo from '../assets/Tourism-Image-Card-3.avif'
 import ImageCardThree from '../assets/Tourism-Image-Card-1.jpeg'
