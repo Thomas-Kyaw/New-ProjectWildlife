@@ -1,0 +1,67 @@
+.container {
+  font-family: "DynaPuff", sans-serif;
+}
+
+.card {
+  background-color: #f7f5ed;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.header {
+  background-color: #2e8b57;
+  padding: 16px;
+  color: #f7f5ed;
+  text-align: center;
+}
+
+.body {
+  padding: 16px;
+}
+
+.filters {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.select {
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 12px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+.table th {
+  background-color: #1b95e0;
+  color: #fff;
+}
+
+.image {
+  width: 100px;
+  height: 100px;
+  border-radius: 5px;
+}
+
+.textMuted {
+  color: #555;
+  text-align: center;
+}
+
+.alert {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}

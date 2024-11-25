@@ -1,0 +1,89 @@
+.container {
+  max-width: 600px;
+  margin: 50px auto;
+  font-family: 'Atma', sans-serif;
+  color: #2e8b57;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #1b95e0;
+}
+
+.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.infoSection {
+  text-align: center;
+}
+
+.info {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 10px;
+}
+
+.primaryButton {
+  background-color: #1b95e0;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.primaryButton:hover {
+  background-color: #1b5da0;
+}
+
+.secondaryButton {
+  background-color: #f0f0f0;
+  color: #555;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.secondaryButton:hover {
+  background-color: #ddd;
+}

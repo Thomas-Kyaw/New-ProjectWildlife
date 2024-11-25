@@ -1,16 +1,18 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const { MongoClient, ObjectId } = require("mongodb");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const multer = require("multer"); // For file uploads
+const multer = require("multer");
 const path = require("path");
-const fs = require("fs"); // For file reading
+const fs = require("fs");
 const axios = require("axios");
 require("dotenv").config();
 
 const app = express();
 
+// Logging middleware
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`);
   console.log("Headers:", req.headers);
@@ -42,15 +44,16 @@ mongoose
   })
   .catch((error) => {
     console.error("MongoDB connection error:", error);
+    process.exit(1); // Exit if cannot connect to database
   });
 
 // JWT Secret Key
 const jwtSecret = process.env.JWT_SECRET || "yourFallbackSecretKey";
 
-// MongoDB Users collection setup without external models
+// MongoDB Users collection setup
 const usersCollection = mongoose.connection.collection("Users");
 
-// Modified token generation to ensure _id is converted to string
+// Token generation ensuring _id is converted to string
 const generateToken = (user) => {
   return jwt.sign(
     {
@@ -123,6 +126,55 @@ app.post("/api/auth/login", async (req, res) => {
   } catch (error) {
     console.error("Login error:", error);
     res.status(500).json({ error: "Server error" });
+  }
+});
+
+// Add this endpoint to your server.js
+app.put("/api/user/update", async (req, res) => {
+  const token = req.headers.authorization?.split(" ")[1];
+
+  if (!token) {
+    return res.status(401).json({ error: "Unauthorized, token missing" });
+  }
+
+  try {
+    const decoded = jwt.verify(token, jwtSecret);
+    const userId = new ObjectId(decoded.userId);
+    const { email, currentPassword, newPassword } = req.body;
+
+    // Find user
+    const user = await usersCollection.findOne({ _id: userId });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Verify current password
+    const isValidPassword = await bcrypt.compare(
+      currentPassword,
+      user.password
+    );
+    if (!isValidPassword) {
+      return res.status(400).json({ message: "Current password is incorrect" });
+    }
+
+    // Prepare update object
+    const updateData = { email };
+
+    // If new password provided, hash it
+    if (newPassword) {
+      updateData.password = await bcrypt.hash(newPassword, 10);
+    }
+
+    // Update user
+    await usersCollection.updateOne({ _id: userId }, { $set: updateData });
+
+    res.status(200).json({ message: "Profile updated successfully" });
+  } catch (error) {
+    console.error("Update error:", error);
+    if (error.name === "JsonWebTokenError") {
+      return res.status(401).json({ message: "Invalid token" });
+    }
+    res.status(500).json({ message: "Server error" });
   }
 });
 
@@ -203,7 +255,7 @@ app.get("/api/auth/profile", async (req, res) => {
   }
 });
 
-// Add file type validation middleware
+// File type validation middleware
 const fileFilter = (req, file, cb) => {
   if (file.mimetype.startsWith("image/")) {
     cb(null, true);
@@ -212,7 +264,7 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-// Modified multer configuration
+// Multer configuration
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "uploads/");
@@ -231,12 +283,12 @@ const upload = multer({
   },
 });
 
-// Create the upload directory if it doesn't exist
+// Create uploads directory if it doesn't exist
 if (!fs.existsSync("uploads")) {
   fs.mkdirSync("uploads");
 }
 
-// Modified upload endpoint
+// Upload endpoint
 app.post("/api/upload", upload.single("file"), async (req, res) => {
   try {
     if (!req.file) {
@@ -278,6 +330,100 @@ app.post("/api/upload", upload.single("file"), async (req, res) => {
     res.status(500).json({
       error: "Server error during file upload or processing",
       details: error.response?.data || error.message,
+    });
+  }
+});
+
+// Update the WildLife Schema to include base64 data and specify collection
+const WildLifeSchema = new mongoose.Schema(
+  {
+    image_filename: {
+      type: String,
+      required: true,
+    },
+    image_data: {
+      type: String, // for base64 image data
+      required: true,
+    },
+    csv_filename: {
+      type: String,
+      required: true,
+    },
+    csv_data: {
+      type: String, // for base64 CSV data
+      required: true,
+    },
+  },
+  {
+    timestamps: true,
+    collection: "WildLife", // Explicitly specify the collection name
+  }
+);
+
+// Create WildLife model
+const WildLife =
+  mongoose.models.WildLife || mongoose.model("WildLife", WildLifeSchema);
+
+app.get("/api/data", async (req, res) => {
+  try {
+    const data = await WildLife.find({}).sort({ createdAt: -1 }).lean().exec();
+
+    if (!data || data.length === 0) {
+      return res.status(404).json({
+        message: "No data found",
+      });
+    }
+
+    // Transform dates to ISO strings and handle missing fields
+    const formattedData = data.map((item) => ({
+      ...item,
+      createdAt: item.createdAt ? item.createdAt : null, // Handle missing or invalid `createdAt`
+      _id: item._id.toString(),
+      imageUrl: `data:image/jpeg;base64,${item.image_data}`,
+      csvUrl: `data:text/csv;base64,${item.csv_data}`,
+    }));
+
+    res.status(200).json(formattedData);
+  } catch (err) {
+    console.error("Error fetching data:", err);
+    res.status(500).json({
+      message: "Error fetching data",
+      error: err.message,
+      stack: process.env.NODE_ENV === "development" ? err.stack : undefined,
+    });
+  }
+});
+
+// Updated save data endpoint to handle base64 data
+app.post("/api/save-data", async (req, res) => {
+  try {
+    const { image_filename, image_data, csv_filename, csv_data } = req.body;
+
+    if (!image_filename || !image_data || !csv_filename || !csv_data) {
+      return res.status(400).json({
+        message:
+          "All fields (image_filename, image_data, csv_filename, csv_data) are required",
+      });
+    }
+
+    const newEntry = new WildLife({
+      image_filename,
+      image_data,
+      csv_filename,
+      csv_data,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+    await newEntry.save();
+
+    const savedEntry = await newEntry.save();
+    res.status(201).json(savedEntry);
+  } catch (err) {
+    console.error("Error saving data:", err);
+    res.status(500).json({
+      message: "Error saving data",
+      error: err.message,
+      stack: process.env.NODE_ENV === "development" ? err.stack : undefined,
     });
   }
 });
@@ -324,7 +470,7 @@ const createMockUsers = async () => {
 };
 
 // Start the server
-const PORT = process.env.PORT || 5002; 
+const PORT = process.env.PORT || 5002;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
