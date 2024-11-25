@@ -5,6 +5,9 @@ from datetime import datetime
 from pymongo import MongoClient
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
+from fastapi import FastAPI
+import uvicorn
+from threading import Thread
 
 # Environment variables for MongoDB and folder paths
 mongo_url = os.environ.get("MONGO_URL", "mongodb+srv://thomaskyaw69:<987654321>@uni-project-cluster.as7yc.mongodb.net/")
@@ -14,6 +17,13 @@ watch_folder = os.environ.get("WATCH_FOLDER", "static/annotated")
 
 # Ensure the watch folder exists
 os.makedirs(watch_folder, exist_ok=True)
+
+# FastAPI app for a minimal HTTP server
+app = FastAPI()
+
+@app.get("/")
+def root():
+    return {"message": "File watcher is running!"}
 
 # Function to upload files as base64 to MongoDB
 def upload_files_as_base64(image_path, csv_path):
@@ -67,7 +77,7 @@ class FileChangeHandler(FileSystemEventHandler):
             print(f"New non-supported file detected: {event.src_path}")
 
 # Start the file watcher
-def start_watching():
+def start_file_watcher():
     event_handler = FileChangeHandler()
     observer = Observer()
     observer.schedule(event_handler, path=watch_folder, recursive=False)
@@ -80,8 +90,17 @@ def start_watching():
     except KeyboardInterrupt:
         observer.stop()
         print("Stopped watching folder")
-    observer.join()
+    finally:
+        observer.join()
+
+# Function to start the HTTP server
+def start_http_server():
+    uvicorn.run(app, host="0.0.0.0", port=8000)
 
 if __name__ == "__main__":
     print("Starting file watcher service...")
-    start_watching()
+    # Run the file watcher in a separate thread
+    Thread(target=start_file_watcher, daemon=True).start()
+
+    # Start the HTTP server
+    start_http_server()

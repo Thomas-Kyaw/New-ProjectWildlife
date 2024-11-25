@@ -9,14 +9,18 @@
 
 .heroSection {
   position: relative;
-  width: 100vw;
+  width: 100%; /* Use 100% width instead of 100vw to avoid horizontal overflow */
   height: 100vh;
-  background: url('../assets/Tourism-Image-Card-2.jpg') center/cover no-repeat;
+  background: url('../assets/orangutan-background-2.jpg') center/cover no-repeat;
   display: flex;
   justify-content: center;
   align-items: center;
   color: #fff; /* White text */
   text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8); /* Add shadow for readability */
+  overflow: hidden; /* Prevent content from overflowing */
+  margin: 0; /* Ensure no margins cause unintended scrolling */
+  padding: 0; /* Remove any padding */
+  box-sizing: border-box; /* Ensure padding is included in the width/height */
 }
 
 .heroContent {
