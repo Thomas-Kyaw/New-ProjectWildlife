@@ -39,7 +39,7 @@ webhook_url = os.environ.get(
 # Updated token and credentials paths for Render
 TOKEN_PICKLE_PATH = "/etc/secrets/TOKEN_PICKLE"
 CREDENTIALS_JSON_PATH = "/etc/secrets/CREDENTIALS_JSON"
-
+TOKEN_JSON_PATH = "/etc/secrets/TOKEN_PICKLE"
 
 def watch_drive_folder(folder_id, webhook_url):
     """Sets up webhook to watch for changes in the Google Drive folder."""
