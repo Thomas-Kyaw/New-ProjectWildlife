@@ -15,7 +15,7 @@ const User = () => {
 
   const getToken = () => localStorage.getItem("token");
 
-  axios.defaults.baseURL = "http://localhost:5002";
+  axios.defaults.baseURL = "https://new-projectwildlife.onrender.com";
 
   const fetchUserData = useCallback(async () => {
     try {

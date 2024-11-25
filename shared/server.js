@@ -305,7 +305,7 @@ app.post("/api/upload", upload.single("file"), async (req, res) => {
     });
 
     // Call Python API
-    const pythonApiUrl = "http://localhost:8000/detect/";
+    const pythonApiUrl = "https://new-projectwildlife-python-backend.onrender.com/detect/";
     const pythonResponse = await axios.post(pythonApiUrl, formData, {
       headers: {
         ...formData.getHeaders(),

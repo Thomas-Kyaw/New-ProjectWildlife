@@ -17,7 +17,7 @@ const UploadImage = () => {
     formData.append("file", selectedFile);
 
     try {
-      const response = await fetch("http://localhost:8000/process-image/", {
+      const response = await fetch("https://new-projectwildlife-python-backend.onrender.com/process-image/", {
         method: "POST",
         body: formData,
       });
@@ -28,8 +28,8 @@ const UploadImage = () => {
       }
 
       const result = await response.json();
-      setImageUrl(`http://localhost:8000${result.image_path}`);
-      setCsvUrl(`http://localhost:8000${result.csv_path}`);
+      setImageUrl(`https://new-projectwildlife-python-backend.onrender.com${result.image_path}`);
+      setCsvUrl(`https://new-projectwildlife-python-backend.onrender.com${result.csv_path}`);
     } catch (error) {
       console.error("Error uploading file:", error);
     }

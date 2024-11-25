@@ -74,7 +74,7 @@ const Admin = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:5002/api/data");
+        const response = await fetch("https://new-projectwildlife.onrender.com/api/data");
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
