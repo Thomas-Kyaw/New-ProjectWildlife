@@ -62,7 +62,7 @@ class DriveImageCopier:
     def __init__(self):
         self.SCOPES = SCOPES
         self.DESTINATION_FOLDER_ID = "1Gr5vH-6qRynMf_4wtOx6UlsplQKhsNpQ"  # Update with your folder ID
-        self.SOURCE_EMAIL = "paingchanyp@gmail.com"  # Update with your source email
+        self.SOURCE_EMAIL = "clementchangcheng@gmail.com"  # Update with your source email
         self.processed_files_file = "processed_files.json"
         self.processed_files = self.load_processed_files()
         self.service = self.get_drive_service()
