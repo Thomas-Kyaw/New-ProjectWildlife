@@ -3,6 +3,8 @@ import json
 import os
 import logging
 import time
+from threading import Thread
+from flask import Flask, jsonify
 from googleapiclient.discovery import build
 from google.oauth2.service_account import Credentials
 
@@ -11,35 +13,39 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",
     handlers=[
-        logging.FileHandler("/tmp/drive_copy.log"),  # Save log file in a writable directory
+        logging.FileHandler("/tmp/drive_copy.log"),
         logging.StreamHandler()
     ]
 )
 
 # Constants
 SCOPES = ["https://www.googleapis.com/auth/drive"]
-SERVICE_ACCOUNT_JSON = json.loads(os.environ.get("WATCH_DRIVE_JSON", "{}"))  # Loaded from Render secrets
-PROCESSED_FILES_PATH = "/tmp/processed_files.json"  # Writable path for processed files
+SERVICE_ACCOUNT_JSON = json.loads(os.environ.get("WATCH_DRIVE_JSON", "{}"))
+PROCESSED_FILES_PATH = "/tmp/processed_files.json"
 
 # Google Drive settings
-folder_id = "1Gr5vH-6qRynMf_4wtOx6UlsplQKhsNpQ"  # Replace with your target folder ID
+folder_id = "1Gr5vH-6qRynMf_4wtOx6UlsplQKhsNpQ"
 webhook_url = os.environ.get("WEBHOOK_URL", "https://new-projectwildlife-python-drivepy.onrender.com")
-SOURCE_EMAIL = "clementchangcheng@gmail.com"  # Email of the user sharing files
-DESTINATION_FOLDER_ID = "1Gr5vH-6qRynMf_4wtOx6UlsplQKhsNpQ"  # Replace with your destination folder ID
+SOURCE_EMAIL = "clementchangcheng@gmail.com"
+DESTINATION_FOLDER_ID = "1Gr5vH-6qRynMf_4wtOx6UlsplQKhsNpQ"
+
+# Dummy web server
+app = Flask(__name__)
+
+
+@app.route("/")
+def health_check():
+    return jsonify({"status": "running", "message": "Google Drive Watcher is active!"})
 
 
 def get_drive_service():
-    """
-    Authenticate and return the Google Drive API service using a service account.
-    """
+    """Authenticate and return the Google Drive API service."""
     creds = Credentials.from_service_account_info(SERVICE_ACCOUNT_JSON, scopes=SCOPES)
     return build("drive", "v3", credentials=creds)
 
 
 def watch_drive_folder(folder_id, webhook_url):
-    """
-    Sets up a webhook to watch for changes in the specified Google Drive folder.
-    """
+    """Sets up a webhook to watch for changes in the specified Google Drive folder."""
     drive_service = get_drive_service()
     unique_channel_id = str(uuid.uuid4())
 
@@ -59,9 +65,7 @@ class DriveImageCopier:
         self.processed_files = self.load_processed_files()
 
     def load_processed_files(self):
-        """
-        Load the list of processed file IDs from a JSON file.
-        """
+        """Load the list of processed file IDs from a JSON file."""
         try:
             with open(PROCESSED_FILES_PATH, "r") as f:
                 return json.load(f)
@@ -69,18 +73,14 @@ class DriveImageCopier:
             return []
 
     def save_processed_files(self):
-        """
-        Save the list of processed file IDs to a JSON file.
-        """
+        """Save the list of processed file IDs to a JSON file."""
         if len(self.processed_files) > 1000:
             self.processed_files = self.processed_files[-1000:]
         with open(PROCESSED_FILES_PATH, "w") as f:
             json.dump(self.processed_files, f)
 
     def is_shared_by_target_user(self, file_id):
-        """
-        Check if the file is shared by the target user.
-        """
+        """Check if the file is shared by the target user."""
         try:
             permissions = self.service.permissions().list(
                 fileId=file_id,
@@ -95,9 +95,7 @@ class DriveImageCopier:
             return False
 
     def copy_file(self, file_id, file_name):
-        """
-        Copy a file to the destination folder.
-        """
+        """Copy a file to the destination folder."""
         try:
             file_metadata = {
                 "name": f"Copy of {file_name}",
@@ -114,9 +112,7 @@ class DriveImageCopier:
             return None
 
     def check_for_new_images(self):
-        """
-        Check for new shared images and copy them.
-        """
+        """Check for new shared images and copy them."""
         try:
             results = self.service.files().list(
                 q="mimeType contains 'image/' and 'me' in readers and not 'me' in owners",
@@ -136,9 +132,7 @@ class DriveImageCopier:
             logging.error(f"Error checking for new images: {e}")
 
     def run(self):
-        """
-        Run the continuous monitoring loop.
-        """
+        """Run the continuous monitoring loop."""
         logging.info(f"Starting Drive Image Copier... Monitoring files from: {SOURCE_EMAIL}")
         while True:
             try:
@@ -151,13 +145,23 @@ class DriveImageCopier:
                 logging.error(f"Unexpected error: {e}")
 
 
-def main():
-    # First, set up the folder watch (runs only once)
-    watch_drive_folder(folder_id, webhook_url)
-
-    # Then, continuously run the image copier (for file monitoring)
+def start_copier():
+    """Start the Drive watcher in a separate thread."""
     copier = DriveImageCopier()
     copier.run()
+
+
+def main():
+    """Main entry point to start the web server and the Drive watcher."""
+    # Set up the folder watch (only once)
+    watch_drive_folder(folder_id, webhook_url)
+
+    # Start the Drive watcher in a separate thread
+    thread = Thread(target=start_copier)
+    thread.start()
+
+    # Start the Flask web server
+    app.run(host="0.0.0.0", port=8080)
 
 
 if __name__ == "__main__":
