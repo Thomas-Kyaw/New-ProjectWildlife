@@ -4,9 +4,7 @@ import os
 import logging
 import time
 from googleapiclient.discovery import build
-from google.oauth2.credentials import Credentials
-from google.auth.transport.requests import Request
-from google_auth_oauthlib.flow import InstalledAppFlow
+from google.oauth2.service_account import Credentials
 
 # Configure logging
 logging.basicConfig(
@@ -20,8 +18,7 @@ logging.basicConfig(
 
 # Constants
 SCOPES = ["https://www.googleapis.com/auth/drive"]
-CREDENTIALS_JSON = json.loads(os.environ.get("CREDENTIALS_JSON", "{}"))  # Loaded from Render secrets
-TOKEN_JSON_PATH = "/tmp/token.json"  # Writable path for token.json
+SERVICE_ACCOUNT_JSON = json.loads(os.environ.get("WATCH_DRIVE_JSON", "{}"))  # Loaded from Render secrets
 PROCESSED_FILES_PATH = "/tmp/processed_files.json"  # Writable path for processed files
 
 # Google Drive settings
@@ -33,29 +30,9 @@ DESTINATION_FOLDER_ID = "1Gr5vH-6qRynMf_4wtOx6UlsplQKhsNpQ"  # Replace with your
 
 def get_drive_service():
     """
-    Authenticate and return the Google Drive API service.
-    Uses the token.json for refreshed tokens and CREDENTIALS_JSON for the initial flow.
+    Authenticate and return the Google Drive API service using a service account.
     """
-    creds = None
-
-    # Load existing credentials from token.json
-    if os.path.exists(TOKEN_JSON_PATH):
-        with open(TOKEN_JSON_PATH, "r") as token_file:
-            creds_info = json.load(token_file)
-            creds = Credentials.from_authorized_user_info(creds_info, SCOPES)
-
-    # If credentials are invalid or missing, use InstalledAppFlow
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
-        else:
-            flow = InstalledAppFlow.from_client_config(CREDENTIALS_JSON, SCOPES)
-            creds = flow.run_local_server(port=0)
-
-        # Save the new token to token.json
-        with open(TOKEN_JSON_PATH, "w") as token_file:
-            json.dump(json.loads(creds.to_json()), token_file)
-
+    creds = Credentials.from_service_account_info(SERVICE_ACCOUNT_JSON, scopes=SCOPES)
     return build("drive", "v3", credentials=creds)
 
 
