@@ -48,10 +48,14 @@ class ProcessedFilesCache:
 # Initialize the cache
 processed_files = ProcessedFilesCache()
 
-# Set up logging first
+# Logging Configuration
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    handlers=[
+        logging.FileHandler("app.log"),  # Save logs to a file
+        logging.StreamHandler()  # Output logs to the console
+    ]
 )
 
 # Use the updated paths
@@ -86,7 +90,7 @@ os.makedirs("static/annotated", exist_ok=True)
 # Directory setup
 UPLOAD_DIRECTORY = "static/uploads/"
 ANNOTATED_DIRECTORY = "static/annotated/"
-OUTPUT_DIRECTORY = "static/annotated/"
+OUTPUT_DIRECTORY = "static/csv/"
 
 for directory in [UPLOAD_DIRECTORY, ANNOTATED_DIRECTORY, OUTPUT_DIRECTORY]:
     os.makedirs(directory, exist_ok=True)
@@ -131,314 +135,127 @@ async def detect(file: UploadFile = File(...)):
 
 
 
+# Save to CSV
 def save_to_csv(data, output_file, species_data=None):
-    """
-    Save the extracted data to a CSV file with optional species detection results.
-    Includes enhanced error handling and validation.
-    
-    Args:
-        data (list): List of dictionaries containing date, time, and temperature data
-        output_file (str): Path to output CSV file
-        species_data (list, optional): List of dictionaries containing species detection results
-    """
-    try:
-        # Input validation
-        if not output_file:
-            raise ValueError("Output file path cannot be empty")
-            
-        if not data and not species_data:
-            logging.warning("No data provided to write to CSV")
-            return
-            
-        # Ensure the output directory exists
-        output_dir = os.path.dirname(output_file)
-        os.makedirs(output_dir, exist_ok=True)
-        
-        # Prepare the data rows
-        rows = []
-        headers = ["Date", "Time", "Temperature"]
-        
-        if species_data:
-            headers.extend(["Species", "Confidence"])
-            
-        # Add header row
-        rows.append(headers)
-        
-        # Combine data and species_data
-        max_rows = max(len(data) if data else 0, len(species_data) if species_data else 0)
-        
-        for i in range(max_rows):
-            row = []
-            
-            # Add data fields if available
-            if data and i < len(data):
-                row.extend([
-                    data[i].get("Date", ""),
-                    data[i].get("Time", ""),
-                    data[i].get("Temperature", "")
-                ])
-            else:
-                row.extend(["", "", ""])
-                
-            # Add species data if available
-            if species_data and i < len(species_data):
-                row.extend([
-                    species_data[i].get("Species", ""),
-                    f"{float(species_data[i].get('Confidence', 0)):.2f}"
-                ])
-            elif species_data:
-                row.extend(["", ""])
-                
-            rows.append(row)
-        
-        # Write to CSV file with explicit encoding and newline settings
-        with open(output_file, 'w', newline='', encoding='utf-8') as f:
-            writer = csv.writer(f)
-            writer.writerows(rows)
-            
-        # Verify the file was written
-        if not os.path.exists(output_file):
-            raise FileNotFoundError(f"Failed to create CSV file at {output_file}")
-            
-        file_size = os.path.getsize(output_file)
-        if file_size == 0:
-            raise ValueError(f"CSV file was created but is empty: {output_file}")
-            
-        logging.info(f"Successfully wrote CSV file to {output_file} ({file_size} bytes)")
-        return True
-        
-    except Exception as e:
-        logging.error(f"Error writing CSV file {output_file}: {str(e)}")
-        raise
+    headers = ["Date", "Time", "Temperature"]
+    if species_data:
+        headers += ["Species", "Confidence"]
 
+    rows = [headers]
+    max_len = max(len(data), len(species_data or []))
+
+    for i in range(max_len):
+        row = []
+        if i < len(data):
+            row += [data[i].get("Date", ""), data[i].get("Time", ""), data[i].get("Temperature", "")]
+        else:
+            row += ["", "", ""]
+        if species_data and i < len(species_data):
+            row += [species_data[i].get("Species", ""), species_data[i].get("Confidence", "")]
+        else:
+            row += ["", ""]
+        rows.append(row)
+
+    with open(output_file, "w", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
+        writer.writerows(rows)
+
+# Extract Date, Time, and Temperature
 def extract_date_time_temperature(text):
-    """
-    Extract date, time, and temperature from text with enhanced pattern matching and logging.
-    Handles both 24-hour and 12-hour (AM/PM) time formats.
-    
-    Args:
-        text (str): Input text containing date, time and temperature data
-        
-    Returns:
-        list: List of dictionaries containing formatted date, time and standardized temperature data
-    """
-    logging.info(f"Extracting data from text: {text}")
-    
-    # Updated patterns
-    date_pattern = r'\b(\d{4}-\d{2}-\d{2})\b'
-    # New time pattern to handle both 24-hour and 12-hour formats
-    time_pattern = r'(\d{1,2}:\d{2}:\d{2}(?:\s*[AaPp][Mm])?)'
-    temp_pattern = r'(\d+(?:\.\d+)?)\s*(?:°|degrees?|deg)?[°]?\s*([FC])'
-    
-    def convert_to_24hr(time_str):
-        """Convert 12-hour format to 24-hour format"""
-        try:
-            # Parse the time string
-            if 'AM' in time_str.upper() or 'PM' in time_str.upper():
-                # Parse 12-hour format
-                time_obj = datetime.strptime(time_str.strip(), '%I:%M:%S %p')
-                # Convert to 24-hour format
-                return time_obj.strftime('%H:%M:%S')
-            else:
-                # Already in 24-hour format or invalid
-                return time_str
-        except ValueError as e:
-            logging.error(f"Error converting time format: {e}")
-            return time_str
+    date_pattern = r"\b(\d{4}-\d{2}-\d{2})\b"
+    time_pattern = r"(\d{1,2}:\d{2}:\d{2}(?:\s*[APap][Mm])?)"
+    temp_pattern = r"(\d+(?:\.\d+)?)\s*(?:°|degrees?|deg)?\s*([FC])"
 
-    def fahrenheit_to_celsius(temp_f):
-        """Convert Fahrenheit to Celsius and round to nearest integer"""
-        return round((float(temp_f) - 32) * 5/9)
-    
-    # Clean and standardize text
-    text = text.replace("�", "°").replace('\n', ' ')
-    logging.info(f"Cleaned text: {text}")
-    
-    # Find all matches
+    def convert_to_celsius(temp_f):
+        return round((float(temp_f) - 32) * 5 / 9)
+
     dates = re.findall(date_pattern, text)
     times = re.findall(time_pattern, text)
-    temps = re.findall(temp_pattern, text, re.IGNORECASE)
-    
-    logging.info(f"Found dates: {dates}")
-    logging.info(f"Found times: {times}")
-    logging.info(f"Found temperatures: {temps}")
-    
-    # Convert times to 24-hour format
-    times = [convert_to_24hr(t) for t in times]
-    logging.info(f"Converted times to 24-hour format: {times}")
-    
-    # Create list of dictionaries with properly formatted data
+    temps = re.findall(temp_pattern, text)
+
     data = []
     for i in range(max(len(dates), len(times), len(temps))):
-        entry = {}
-        
-        # Add date if available
-        if i < len(dates):
-            entry["Date"] = dates[i]
-            
-        # Add time if available    
-        if i < len(times):
-            entry["Time"] = times[i]
-            
-        # Add temperature if available
-        if i < len(temps):
-            temp_value, temp_unit = temps[i]
-            try:
-                if temp_unit.upper() == 'F':
-                    temperature = fahrenheit_to_celsius(float(temp_value))
-                else:
-                    temperature = round(float(temp_value))
-                entry["Temperature"] = temperature
-            except ValueError as e:
-                logging.error(f"Error converting temperature {temp_value}: {e}")
-                continue
-        
-        if entry:  # Only add if we have at least one valid field
-            data.append(entry)
-            
-    logging.info(f"Extracted data: {data}")
+        entry = {
+            "Date": dates[i] if i < len(dates) else "",
+            "Time": times[i] if i < len(times) else "",
+            "Temperature": (
+                convert_to_celsius(float(temps[i][0])) if temps[i][1].upper() == "F" else float(temps[i][0])
+            ) if i < len(temps) else ""
+        }
+        data.append(entry)
+
     return data
 
+# Process Image and Generate CSV
 def process_image_and_generate_csv(image_path):
-    """
-    Processes an image, annotates it, extracts text, and generates a CSV file
-    with detected data, including animal species identified by YOLO.
-    """
     try:
-        # Load and validate image
         image = cv2.imread(image_path)
         if image is None:
-            raise Exception(f"Failed to read image file: {image_path}")
+            raise Exception(f"Invalid image file: {image_path}")
 
-        # Process with YOLO
         results = model(image)
         annotated_image = results[0].plot()
+        detected_species = [
+            {"Species": model.names[int(result.cls)], "Confidence": round(result.conf[0] * 100, 2)}
+            for result in results[0].boxes
+        ]
 
-        # Extract detected objects (species) with confidence scores
-        detected_species = []
-        for result in results[0].boxes:
-            class_id = int(result.cls)
-            confidence = float(result.conf[0]) if isinstance(result.conf, (list, tuple)) else float(result.conf)
-            detected_species.append({
-                "Species": model.names[class_id],
-                "Confidence": confidence
-            })
-
-        # Detect text and extract data with enhanced logging
         detected_text = detect_text(image_path)
-        logging.info(f"Detected text from image: {detected_text}")
-        
-        extracted_data = []
-        if detected_text:
-            extracted_data = extract_date_time_temperature(detected_text)
-            logging.info(f"Extracted data from text: {extracted_data}")
-        else:
-            logging.warning("No text detected in the image")
+        extracted_data = extract_date_time_temperature(detected_text)
 
-        # Generate output paths
         base_name = Path(image_path).stem
-        annotated_filename = f"annotated_{base_name}.jpg"
-        csv_filename = f"data_{base_name}.csv"
-        
-        annotated_image_path = os.path.join(ANNOTATED_DIRECTORY, annotated_filename)
-        csv_output_path = os.path.join(OUTPUT_DIRECTORY, csv_filename)
+        annotated_image_path = os.path.join(ANNOTATED_DIRECTORY, f"annotated_{base_name}.jpg")
+        csv_path = os.path.join(OUTPUT_DIRECTORY, f"{base_name}.csv")
 
-        # Save annotated image
         cv2.imwrite(annotated_image_path, annotated_image)
-        logging.info(f"Saved annotated image to {annotated_image_path}")
+        save_to_csv(extracted_data, csv_path, detected_species)
 
-        # Save CSV with both extracted data and species information
-        if not extracted_data and not detected_species:
-            logging.warning("No data extracted from image (neither text nor species)")
-        else:
-            save_to_csv(extracted_data, csv_output_path, species_data=detected_species)
-            logging.info(f"Saved CSV with {len(extracted_data)} text entries and {len(detected_species)} species entries")
-        
-        return annotated_image_path, csv_output_path
-
+        return annotated_image_path, csv_path
     except Exception as e:
-        logging.error(f"Error in process_image_and_generate_csv: {str(e)}")
+        logging.error(f"Error processing image: {e}")
         raise
 
+# Text Extraction Using Google Vision
 def detect_text(image_path):
-    """
-    Detect text from image using Google Cloud Vision API with enhanced error handling
-    and logging.
-    """
     client = vision.ImageAnnotatorClient()
-    
     try:
         with open(image_path, 'rb') as image_file:
             content = image_file.read()
-        
         image = vision.Image(content=content)
         response = client.text_detection(image=image)
-        
+
         if response.error.message:
-            logging.error(f"Error in text detection: {response.error.message}")
-            return ""
-            
+            raise Exception(f"Google Vision API Error: {response.error.message}")
+
         texts = response.text_annotations
-        if not texts:
-            logging.warning("No text detected in the image")
-            return ""
-        
-        # Log the full text found
-        full_text = texts[0].description
-        logging.info(f"Full text detected: {full_text}")
-            
-        return full_text
+        return texts[0].description if texts else ""
+    except Exception as e:
+        logging.error(f"Error in detect_text: {e}")
+        return ""
         
     except Exception as e:
         logging.error(f"Error in detect_text: {str(e)}")
         return ""
     
+# Process Image Endpoint
 @app.post("/process-image/")
 async def process_image(file: UploadFile = File(...)):
-    """
-    Process an uploaded image with enhanced error handling and validation.
-    """
     try:
-        # Validate file type
-        if not file.content_type.startswith('image/'):
-            raise HTTPException(status_code=400, detail="File must be an image")
-        
-        # Create temporary file
-        temp_path = f"{UPLOAD_DIRECTORY}{file.filename}"
-        os.makedirs(os.path.dirname(temp_path), exist_ok=True)
-        
-        # Save uploaded file
-        with open(temp_path, "wb") as temp_file:
-            content = await file.read()
-            temp_file.write(content)
-        
-        logging.info(f"Saved uploaded file to {temp_path}")
-        
-        # Process the image
-        try:
-            annotated_image_path, csv_output_path = process_image_and_generate_csv(temp_path)
-            
-            # Verify files were created
-            if not os.path.exists(annotated_image_path):
-                raise Exception("Annotated image was not created")
-            if not os.path.exists(csv_output_path):
-                raise Exception("CSV file was not created")
-                
-            return {
-                "image_path": annotated_image_path.replace("static/", "/static/"),
-                "csv_path": csv_output_path.replace("static/", "/static/")
-            }
-            
-        finally:
-            # Cleanup temporary file
-            if os.path.exists(temp_path):
-                os.remove(temp_path)
-                logging.info(f"Cleaned up temporary file: {temp_path}")
+        if not file.content_type.startswith("image/"):
+            raise HTTPException(status_code=400, detail="Invalid file type. Please upload an image.")
 
+        file_path = os.path.join(UPLOAD_DIRECTORY, file.filename)
+        with open(file_path, "wb") as buffer:
+            buffer.write(await file.read())
+
+        annotated_path, csv_path = process_image_and_generate_csv(file_path)
+        return {
+            "image_path": annotated_path.replace("static/", "/static/"),
+            "csv_path": csv_path.replace("static/", "/static/")
+        }
     except Exception as e:
-        logging.error(f"Error processing image: {str(e)}")
-        raise HTTPException(status_code=500, detail=str(e))
-
+        logging.error(f"Error processing image: {e}")
+        raise HTTPException(status_code=500, detail=str(e)) 
 
 @app.get("/files/{file_id}")
 async def get_file(file_id: str):
