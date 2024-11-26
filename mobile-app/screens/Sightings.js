@@ -23,7 +23,7 @@ export default function Sightings({ navigation }) {
         id: '3',
         name: 'Hornbill Bird',
         description: 'Flying across the reserve.',
-        image: require('../assets/hornbill.jpg'),
+        image: require('../assets/orangutan-2.jpg'),
       },
     ];
 
