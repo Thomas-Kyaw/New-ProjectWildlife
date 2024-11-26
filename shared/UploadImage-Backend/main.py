@@ -74,13 +74,19 @@ drive_service = build('drive', 'v3', credentials=creds)
 # Initialize FastAPI app
 app = FastAPI()
 
-# CORS configuration
+# Allowed origins
+origins = [
+    "https://new-projectwildlife-website.onrender.com/",  # Your React frontend URL
+    "http://localhost:3000",  # Allow localhost for development purposes
+]
+
+# Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,  # Allow specific origins
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["*"],  # Allow all HTTP methods
+    allow_headers=["*"],  # Allow all HTTP headers
 )
 
 
